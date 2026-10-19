@@ -4,7 +4,17 @@
 **Researcher:** Muhammad Siddique, Ph.D.  
 **Project type:** Observational computational education research | Reproducible Python methods | UK Open University Learning Analytics Dataset (OULAD)
 
-> **Research status — October 2026:** The source dataset and scholarly descriptor are authenticated. The analysis pipeline has passed synthetic-data checks. **Real OULAD data have not yet been processed for this project; empirical performance, coefficients, and SHAP results are pending.** This repository does not claim a deployed robotic teaching assistant, a causal treatment effect, or research on a contemporary U.S. campus.
+> **Research status — October 2026:** Empirical analyses on the authentic UCI OULAD archive have now been executed and checked. A 50-page, 47-reference scholarly working manuscript reports results and limitations. **This research is not yet peer-reviewed or accepted for publication, and no robotic AI intervention was evaluated.** The source archive SHA-256 is `f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4`.
+
+## Authentic empirical results
+
+- **24,835 distinct eligible learners**, 22 course presentations, 42.8% later Fail/Withdrawn.
+- Six full presentations held out for primary testing (**7,239 learners**).
+- **XGBoost:** AP **0.685**, ROC-AUC **0.724**, Brier **0.204**.
+- **L2 Logistic Regression:** AP **0.663**, ROC-AUC **0.717**, Brier **0.209**.
+- XGBoost's advantage is **modest**; under leave-one-module-out validation its Brier score is worse than Logistic Regression on **five of seven modules**, highlighting distribution-shift and calibration risks.
+- HC3 and course-presentation clustered Econometric estimates associate early activity with subsequent risk; these **are not causal effects**.
+- See [verified results and scope limitations](docs/REAL_DATA_RESULTS_AND_LIMITS.md) and [aggregate numerical tables](results/primary_models.csv).
 
 ## Research contribution
 This project examines whether **early digital learning activity** can help estimate subsequent academic risk using a combined econometric and machine-learning framework. It explicitly separates **conditional statistical associations**, **out-of-sample prediction**, and **model explanation**.
