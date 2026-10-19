@@ -23,8 +23,8 @@ def prepare(raw_dir, output_path, cutoff_day=28, chunk_size=500_000, unique_stud
     if cutoff_day not in (14, 28, 42):
         raise ValueError("Predeclared horizons are days 14, 28 and 42")
 
-    info = pd.read_csv(raw_dir / "studentInfo.csv")
-    registration = pd.read_csv(raw_dir / "studentRegistration.csv")
+    info = pd.read_csv(raw_dir / "studentInfo.csv", na_values=["?"])
+    registration = pd.read_csv(raw_dir / "studentRegistration.csv", na_values=["?"])
     fields = KEYS + [
         "gender", "region", "highest_education", "imd_band", "age_band",
         "num_of_prev_attempts", "studied_credits", "disability", "final_result",
@@ -73,8 +73,8 @@ def prepare(raw_dir, output_path, cutoff_day=28, chunk_size=500_000, unique_stud
              active_days_by_cutoff=("date", "nunique"))
     )
 
-    assessments = pd.read_csv(raw_dir / "assessments.csv")
-    submissions = pd.read_csv(raw_dir / "studentAssessment.csv")
+    assessments = pd.read_csv(raw_dir / "assessments.csv", na_values=["?"])
+    submissions = pd.read_csv(raw_dir / "studentAssessment.csv", na_values=["?"])
     linked = submissions.merge(
         assessments[["id_assessment", "code_module", "code_presentation"]],
         on="id_assessment", how="inner", validate="many_to_one",
