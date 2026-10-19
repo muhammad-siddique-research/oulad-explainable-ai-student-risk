@@ -1,0 +1,4 @@
+feature,LPM_beta,HC3_CI_lower,HC3_CI_upper,cluster_CI_lower,cluster_CI_upper
+log1p_clicks,-0.037472,-0.043205,-0.031739,-0.047199,-0.027745
+active_days_by_cutoff,-0.013788,-0.015037,-0.012540,-0.015569,-0.012008
+tasks_completed_by_cutoff,-0.141791,-0.153665,-0.129917,-0.184736,-0.098846
