@@ -1,0 +1,5 @@
+feature_set,model,AP,AUC,Brier
+all,logistic_l2,0.663090,0.716776,0.209106
+all,xgboost,0.685175,0.724472,0.204065
+behavior_only,logistic_l2,0.609088,0.669723,0.223133
+behavior_only,xgboost,0.602942,0.661463,0.222739
