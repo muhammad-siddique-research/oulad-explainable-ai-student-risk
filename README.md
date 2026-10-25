@@ -72,6 +72,27 @@ flowchart TD
 
 **Not studied:** Robotic Teaching Assistants; generative-AI tutors; human interventions after warnings; randomized treatments; prospective adoption or contemporary U.S. student outcomes.
 
+## New research extension: Decision reliability under limited support capacity
+
+**Added methodological capability — no new empirical results claimed.** The [Reliability-Aware Decision Audit](docs/DECISION_RELIABILITY_EXTENSION.md) adds a reproducible, post-hoc evaluation of the locally generated held-out predictions. It investigates whether a high AP model is also preferable when a college can contact only a limited share of students.
+
+| Additional analytical question | Implemented, testable output |
+|---|---|
+| How many at-risk learners might fall in the highest-ranked 5%, 10% or 20%? | Expected PPV, recall and lift with **tie-aware** boundary selection |
+| Are predicted probabilities quantitatively credible? | Diagnostic calibration intercept/slope and suppressed-small-cell reliability bins |
+| Does the ranking depend on individual course context? | Per-presentation descriptive metrics and a paired **presentation-cluster bootstrap** |
+| Can the results be disclosed ethically and reproduced? | Aggregate-only exports, input SHA-256, strict real-versus-synthetic manifest checks, deterministic tests |
+
+The new audit does **not** claim to determine which learners would benefit from support, establish fairness, or measure any intervention effect. Similar capacity-aware OULAD evaluation has already been published; the present value is a transparent extension to the repository's existing econometric and transportability analyses. See the [three-track research roadmap](docs/RESEARCH_EXTENSION_ROADMAP.md) for the next scientific questions and their limitations.
+
+After separately obtaining official OULAD data and running the empirical pipeline below, the extension is:
+
+~~~bash
+python -m src.decision_audit --predictions outputs/real_oulad/holdout_predictions.csv --output-dir outputs/real_decision_audit
+~~~
+
+It requires the empirical module's companion manifest and will refuse to relabel synthetic predictions as real research results. Detailed methods and a **separately labeled fictional test workflow** appear in [the extension protocol](docs/DECISION_RELIABILITY_EXTENSION.md).
+
 ## Data provenance and ethics
 
 The original Open University dataset contains **32,593 student-course registrations**, **22 course presentations** and **10,655,280 VLE activity records**. Those totals are from the **source**, not the filtered analytic cohort.
@@ -117,6 +138,7 @@ These commands provide a workflow **but do not independently prove exact agreeme
 | Responsible research | [Model Card](docs/MODEL_CARD.md) · [Reproducibility Audit](docs/REPRODUCIBILITY_AUDIT.md) · [Research Integrity](docs/RESEARCH_INTEGRITY.md) |
 | Evidence files | [Aggregate Table Guide](results/README.md) · [Primary Models](results/primary_models.csv) · [Cross-Module Transfer](results/leave_one_module_out.csv) · [Figures](figures/) |
 | Code and tests | [Cohort Builder](src/prepare_oulad.py) · [Empirical Models](src/empirical.py) · [Robustness](src/robustness.py) · [Tests](tests/) |
+| Advanced research extensions | [Decision Reliability Protocol](docs/DECISION_RELIABILITY_EXTENSION.md) · [Research Roadmap](docs/RESEARCH_EXTENSION_ROADMAP.md) · [Decision Audit Code](src/decision_audit.py) |
 
 **Status:** Unreviewed, observational working research, not a deployed service. Citation of this repository as research software is described by [CITATION.cff](CITATION.cff); cite the OULAD authors separately. No score should be used to penalize or exclude a learner. Responsible applications require new-cohort validation, credible fairness and calibration audits, student protections, human oversight and evidence that support programs help rather than harm.
 
