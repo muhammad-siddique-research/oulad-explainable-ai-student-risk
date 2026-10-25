@@ -17,6 +17,7 @@
 | SHAP attribution ranking | Narrative and the ability to output global_shap.csv | **Numerical SHAP summary not committed**; ranking not independently audited |
 | Group fairness and calibration curves | Code supports local subgroup summaries; no committed comprehensive audit | **Pending** verified aggregate diagnostics |
 | Software invariants | tests/ with fictional fixtures; CI | Software tests, **not** confirmation of OULAD effects |
+| Decision-capacity and diagnostic calibration extension | src/decision_audit.py and tests/test_decision_audit.py | **Code implemented and tested on fictional data; no new genuine OULAD results committed** |
 | Manuscript publication | Working paper notes | **Unreviewed / not accepted / not published** |
 
 ## Independent audit of aggregate tables

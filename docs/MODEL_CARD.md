@@ -25,6 +25,8 @@ The recorded main holdout comprises **7,239** learners. AP / AUC / Brier for XGB
 
 The code is available; the original learner-level source and row-level model predictions are **not** committed. A second independent raw-data replication is still required. Publicly displayed charts are regenerated only from committed aggregate CSVs.
 
+**Additional software, not an additional historical finding:** [src/decision_audit.py](../src/decision_audit.py) supports a post-hoc reliability and capacity assessment on locally held-out predictions. Top-k PPV and recall, score-bin calibration diagnostics, course-level variation and exploratory paired presentation resampling can be reported without exporting learner IDs. No actual historical decision-audit numbers have been committed. The code's rank selection is not an institutional outreach recommendation or a treatment-benefit model.
+
 ## Known limitations and failure modes
 
 - **Construct validity:** click activity is not equivalent to attention, learning, access or motivation. Baseline demographics can encode historical inequity.

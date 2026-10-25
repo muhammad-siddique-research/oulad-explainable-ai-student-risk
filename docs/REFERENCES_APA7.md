@@ -10,6 +10,8 @@ Opoku, R. A., Pei, B., & Xing, W. (2025). Unveiling accuracy–fairness trade-of
 
 Wu, S., Duan, J., & Luo, M. (2026). Calibrated early-warning models with fairness auditing and selective prediction for course withdrawal risk: Evidence from OULAD. *PLOS ONE, 21*(7), Article e0352867. https://doi.org/10.1371/journal.pone.0352867
 
+Wu, S., Duan, J., & Luo, M. (2026). Correction: Calibrated early-warning models with fairness auditing and selective prediction for course withdrawal risk: Evidence from OULAD. *PLOS ONE, 21*(8), Article e0355736. https://doi.org/10.1371/journal.pone.0355736
+
 **Dataset deposit:** Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017). *Open University Learning Analytics dataset* [Data set]. Figshare. https://doi.org/10.6084/m9.figshare.5081998
 
 ## Predictive modeling and explainability
