@@ -1,86 +1,124 @@
-# Explainable AI for Early Academic Risk
-### Robust Econometrics · XGBoost · SHAP · Higher Education Learning Analytics
+# WHEN EARLY SIGNALS TRAVEL
+### Explainable Academic-Risk Prediction and Cross-Course Reliability in OULAD
 
-**Researcher:** Muhammad Siddique, Ph.D.  
-**Project type:** Observational computational education research | Reproducible Python methods | UK Open University Learning Analytics Dataset (OULAD)
+**Muhammad Siddique, Ph.D.** · Applied Economist · Interdisciplinary Quantitative Researcher · Educational Data Science
 
-> **Research status — October 2026:** Empirical analyses on the authentic UCI OULAD archive have now been executed and checked. A 50-page, 47-reference scholarly working manuscript reports results and limitations. **This research is not yet peer-reviewed or accepted for publication, and no robotic AI intervention was evaluated.** The source archive SHA-256 is `f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4`.
+![Evidence](https://img.shields.io/badge/Data-Real%20historical%20OULAD-13766d) ![Cohort](https://img.shields.io/badge/Cohort-24%2C835-284b72) ![Status](https://img.shields.io/badge/Status-Unreviewed%20working%20research-b9772f) ![Code](https://img.shields.io/badge/Code-MIT-315b96)
 
-## Authentic empirical results
+[![Research checks](https://github.com/muhammad-siddique-research/oulad-explainable-ai-student-risk/actions/workflows/tests.yml/badge.svg)](https://github.com/muhammad-siddique-research/oulad-explainable-ai-student-risk/actions/workflows/tests.yml)
 
-- **24,835 distinct eligible learners**, 22 course presentations, 42.8% later Fail/Withdrawn.
-- Six full presentations held out for primary testing (**7,239 learners**).
-- **XGBoost:** AP **0.685**, ROC-AUC **0.724**, Brier **0.204**.
-- **L2 Logistic Regression:** AP **0.663**, ROC-AUC **0.717**, Brier **0.209**.
-- XGBoost's advantage is **modest**; under leave-one-module-out validation its Brier score is worse than Logistic Regression on **five of seven modules**, highlighting distribution-shift and calibration risks.
-- HC3 and course-presentation clustered Econometric estimates associate early activity with subsequent risk; these **are not causal effects**.
-- See [verified results and scope limitations](docs/REAL_DATA_RESULTS_AND_LIMITS.md) and [aggregate numerical tables](results/primary_models.csv).
+> **Research question:** Can the first 28 days of digital learning activity anticipate later academic risk, and will model accuracy and probability reliability survive transfer to unfamiliar courses?
 
-## Research contribution
-This project examines whether **early digital learning activity** can help estimate subsequent academic risk using a combined econometric and machine-learning framework. It explicitly separates **conditional statistical associations**, **out-of-sample prediction**, and **model explanation**.
+> **Evidence status — October 2026:** The repository contains **archived aggregate tables reported from authentic 2013–2014 OULAD analyses**, alongside reproducible research code. **24,835 distinct learners** were retained in the reported day-28 cohort, including **7,239 learners** in the main held-out test. These archived tables have been checked for basic internal consistency; an independent source-data-to-results rerun **has not been completed in this revision**. This is an **unreviewed working research project**, not a published paper, randomized intervention, or deployed student-risk system. Synthetic fixtures are software tests only.
 
-| Research question | Approach | Output |
+## Abstract
+
+This study combines observational Econometrics, supervised Machine Learning, and Explainable Artificial Intelligence to examine early academic risk using the Open University Learning Analytics Dataset. Prediction features cover course days 0–27 and recorded baseline characteristics; the target is subsequent Fail/Withdrawn status conditional on still being enrolled at day 28. Course presentations—not individual rows—are withheld during the primary evaluation, and overlapping students are excluded from training. In committed results, XGBoost achieves **0.6852 Average Precision**, compared with **0.6631** for L2 Logistic Regression, a modest **0.0221-point advantage**. Brier scores are **0.2041** and **0.2091**, respectively. Yet Logistic Regression has better Brier performance in **five of seven leave-one-module-out comparisons**, demonstrating the fragility of conclusions based on one split. Adjusted engagement associations and held-out model explanations complement the prediction audit, but do not establish causal effects. The central contribution is an **explicit assessment of portability, calibration-related error, and responsible interpretation**.
+
+## Main held-out findings
+
+| Metric, test n = 7,239 | XGBoost | L2 Logistic Regression | Prevalence baseline |
+|---|---:|---:|---:|
+| Average Precision ↑ | **0.6852** | 0.6631 | 0.4223 |
+| ROC-AUC ↑ | **0.7245** | 0.7168 | 0.5000 |
+| Brier score ↓ | **0.2041** | 0.2091 | 0.2440 |
+| Log loss ↓ | **0.5935** | 0.6064 | 0.6812 |
+
+The holdout's observed risk prevalence was **42.23%**. Random Forest scored AP **0.6782**, ROC-AUC **0.7218**, and Brier **0.2057**. The values above are drawn from the [committed model table](results/primary_models.csv); they are not freshly estimated for this documentation update.
+
+![Model accuracy and probability-error comparison from aggregate result tables](figures/heldout_model_comparison.svg)
+
+![Cross-module portability: XGBoost minus Logistic Regression](figures/module_transportability.svg)
+
+*Both figures are derived strictly from committed, aggregate, reported real-data tables. Higher AP/AUC and lower Brier are preferable. Brier assesses overall probabilistic accuracy; calibration itself requires additional diagnostics.*
+
+**Research documentation:** [Results and Discussion (APA-style)](docs/RESULTS_AND_DISCUSSION_APA7.md) · [Analysis Protocol](docs/ANALYSIS_PROTOCOL.md) · [Model Card](docs/MODEL_CARD.md) · [Reproducibility Audit](docs/REPRODUCIBILITY_AUDIT.md) · [APA 7 References](docs/REFERENCES_APA7.md).
+
+## Research design and questions
+
+| Question | Method | Scope of inference |
 |---|---|---|
-| RQ1: What early-activity patterns are associated with later academic risk? | Prespecified statistical models, robust uncertainty, sensitivity checks | Associational estimates, diagnostics |
-| RQ2: Does gradient-boosted learning improve held-out prediction? | Logistic Regression, Random Forest, XGBoost and prevalence baseline | Average precision, AUROC, log loss, Brier score |
-| RQ3: Are explanations reliable across learning contexts? | Held-out Tree SHAP, calibration, presentation and subgroup checks | Descriptive attribution and stability summaries |
+| **RQ1. Engagement and academic risk** | Adjusted Linear Probability Model, HC3 inference; separately archived clustered intervals | Observational associations, **not** effects of studying more |
+| **RQ2. Predictive uplift** | Prevalence, L2 Logistic Regression, Random Forest, tuned XGBoost | Held-out accuracy for historical OULAD |
+| **RQ3. Transportability** | Leave-one-module-out, chronological transfer, repeated course splits, 14/42-day sensitivity | Stability across recorded settings, not proven real-world transport |
+| **RQ4. Explainability and equity** | Tree SHAP, behavior-only ablation, subgroup reporting with minimum cell sizes | Predictive reliance and diagnostics, **not** causal/fairness certification |
 
-**Outcome:** `Fail` or `Withdrawn` versus `Pass` or `Distinction`, among learners still registered at the study cutoff.  
-**Information horizon:** first **28 course days** (day 0–27), with planned 14/42-day sensitivity analyses.  
-**Generalization:** held-out course-presentation groups and non-overlapping students, rather than random row splitting.
+- **Cohort:** one eligible learner–module–presentation record per anonymized learner; enrolled at day 28, excluding those already withdrawn.
+- **Timing:** features are restricted to course days **0–27**; outcome is eventual Fail/Withdrawn versus Pass/Distinction.
+- **Safeguards:** no later VLE events, final grade, subsequent withdrawal dates, or assessment scores with uncertain availability enter the prediction features.
+- **Validation:** hold out whole course presentations; prevent person overlap across train and test; fit transformations only on training data and select XGBoost hyperparameters with group-based inner validation.
+- **Metrics:** primary Average Precision; secondary ROC-AUC, Brier and log loss. No institutional action threshold is estimated or justified.
 
-## Authentic sources and citation
+~~~mermaid
+flowchart TD
+  A["Official OULAD, 2013–2014"] --> B["Eligible day-28 analytic cohort"]
+  B --> C["Presentation-held-out validation"]
+  C --> D["Econometric associations"]
+  C --> E["Logistic, Forest and XGBoost"]
+  E --> F["Prediction and transfer"]
+  E --> G["Held-out SHAP and subgroup diagnostics"]
+  D --> H["Results and limitations"]
+  F --> H
+  G --> H
+~~~
 
-**Original institutional source:** [Open University OULAD](https://research.stem.open.ac.uk/ouanalyse/dataset/)  
-**Original dataset deposit:** [Figshare](https://doi.org/10.6084/m9.figshare.5081998)  
-**Archived release:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset) — [DOI](https://doi.org/10.24432/C5KK69)  
-**Peer-reviewed dataset descriptor:** Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017). Open University learning analytics dataset. *Scientific Data, 4*, Article 170171. https://doi.org/10.1038/sdata.2017.171  
-**Original dataset license:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+## Five defensible findings
 
-The original data describe **32,593 learner–module registrations**, **22 module presentations**, and **10,655,280 daily virtual learning environment interaction records**. These are **published source totals, not the filtered research sample**. Cite and acknowledge the original authors. The present analysis is not endorsed by the Open University.
+1. **Modest uplift, not definitive superiority.** XGBoost exceeds Logistic Regression by **0.0221 AP points** on the primary holdout, without establishing independent-sample statistical significance.
+2. **Model choice changes across courses.** XGBoost has higher AP in six of seven module holdouts, whereas Logistic Regression has lower Brier error in five; on module GGG Brier error is **0.3749** versus **0.2753**, respectively.
+3. **Engagement predicts; causation remains unidentified.** Negative adjusted coefficients for recorded early clicks, active days and submissions can also reflect prior preparation, motivation, and other unmeasured influences.
+4. **Removing background predictors incurs a measured performance cost.** Behavior-only XGBoost AP is **0.6029** compared with **0.6852** for all features. Neither feature set has been established as fair or suitable for high-stakes use.
+5. **Later cutoffs use different learners.** Day-14 and day-42 analyses change the eligible population; resulting differences are not the causal impact of delaying support.
 
-See [source provenance](docs/OFFICIAL_DATA_SOURCES.md), [analysis protocol](docs/ANALYSIS_PROTOCOL.md), [data dictionary](docs/DATA_DICTIONARY.md), and [research integrity](docs/RESEARCH_INTEGRITY.md).
+**Not studied:** Robotic Teaching Assistants; generative-AI tutors; human interventions after warnings; randomized treatments; prospective adoption or contemporary U.S. student outcomes.
 
-## Reproduction (Python 3.11+)
+## Data provenance and ethics
 
-```bash
+The original Open University dataset contains **32,593 student-course registrations**, **22 course presentations** and **10,655,280 VLE activity records**. Those totals are from the **source**, not the filtered analytic cohort.
+
+- [Original Open University source](https://research.stem.open.ac.uk/ouanalyse/dataset/) · [Original Figshare deposit](https://doi.org/10.6084/m9.figshare.5081998) · [UCI accession](https://doi.org/10.24432/C5KK69).
+- [Kuzilek, Hlosta, and Zdrahal (2017), original data descriptor](https://doi.org/10.1038/sdata.2017.171) · [Original dataset license: CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Preserved archive SHA-256 from project log: **f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4**. Its source-file correspondence was **not rechecked** in this documentation revision.
+- Raw learner-level tables and predictions are excluded from version control. **MIT** governs new repository code; it does not replace the dataset creators' license.
+
+## Reproduction
+
+Python 3.11+; research software checks are separate from independent confirmation of the archived empirical coefficients.
+
+~~~bash
 python -m venv .venv
-# Windows PowerShell: .venv\Scripts\Activate.ps1
+# PowerShell: .\.venv\Scripts\Activate.ps1
 # macOS/Linux: source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m pytest -q
-```
 
-**Obtain the original data** via the institutional Figshare deposit or the official UCI archive; archive size is approximately 44.6 MB. Place the seven original CSVs in `data/raw/`, which is excluded from version control.
+# Audit committed aggregate numbers and regenerate safe-to-share SVG figures:
+python -m scripts.audit_published_results
+python -m scripts.build_published_figures
+~~~
 
-```bash
+To rebuild the underlying cohort and models, obtain the seven original OULAD tables in the locally excluded data/raw folder:
+
+~~~bash
 python scripts/download_official_oulad.py --destination data/raw
 python -m src.prepare_oulad --data-dir data/raw --output data/processed/oulad_day28.csv --cutoff-day 28
 python -m src.empirical --input data/processed/oulad_day28.csv --output-dir outputs/real_oulad
 python -m src.robustness --input data/processed/oulad_day28.csv --output-dir outputs/real_robustness
-```
+~~~
 
-**Offline, fictional test data (never empirical evidence):**
-```bash
-python -m src.generate_synthetic --output-dir data/synthetic
-python -m src.empirical --input data/synthetic/synthetic_cutoff_features.csv --output-dir outputs/SYNTHETIC_DEMO --demo
-```
+These commands provide a workflow **but do not independently prove exact agreement with every archived table**, including the separately reported clustered standard errors. See the [honest verification ledger](docs/REPRODUCIBILITY_AUDIT.md).
 
-For any publication, preserve exact environment and data hashes, document exclusions, rerun independent split and sensitivity checks, audit subgroup cell sizes, and populate manuscript tables **only from actual OULAD results**.
+## Research library
 
-## Repository navigation
-- `src/prepare_oulad.py`: prospective cutoff and pre-outcome data construction
-- `src/empirical.py`: modeling, validation, model explanations and robust association
-- `src/robustness.py`: repeated held-out group sensitivity
-- `src/generate_synthetic.py`: unmistakably fictitious software-test fixtures
-- `scripts/download_official_oulad.py`: Figshare acquisition and source checksums
-- `tests/`: leakage, split, and provenance integrity checks
-- `docs/`: protocol, provenance, data dictionary, limits, publication readiness
+| Evidence | Research artifacts |
+|---|---|
+| Academic reporting | [APA-style Results and Discussion](docs/RESULTS_AND_DISCUSSION_APA7.md) · [Original APA 7 References](docs/REFERENCES_APA7.md) · [Working Paper Status](manuscript/WORKING_PAPER_STATUS.md) |
+| Methods | [Analysis Protocol](docs/ANALYSIS_PROTOCOL.md) · [Data Dictionary](docs/DATA_DICTIONARY.md) · [Official Sources](docs/OFFICIAL_DATA_SOURCES.md) |
+| Responsible research | [Model Card](docs/MODEL_CARD.md) · [Reproducibility Audit](docs/REPRODUCIBILITY_AUDIT.md) · [Research Integrity](docs/RESEARCH_INTEGRITY.md) |
+| Evidence files | [Aggregate Table Guide](results/README.md) · [Primary Models](results/primary_models.csv) · [Cross-Module Transfer](results/leave_one_module_out.csv) · [Figures](figures/) |
+| Code and tests | [Cohort Builder](src/prepare_oulad.py) · [Empirical Models](src/empirical.py) · [Robustness](src/robustness.py) · [Tests](tests/) |
 
-## Research integrity
-The study is **quantitative** and **retrospective**; its analytic results are not causal. No proprietary student datasets, private student records, or authentic subject-level predictions are included in this repository. SHAP describes fitted predictive contributions, **not educational interventions or mechanisms**. Discriminatory use of academic-risk scores for punitive decisions is outside the scope of this research.
-
-**Manuscript status:** an extended scholarly working draft exists; its Results section is awaiting real-data computation, independent verification, and journal-specific finalization. Do not describe the draft as a published or peer-reviewed article.
+**Status:** Unreviewed, observational working research, not a deployed service. Citation of this repository as research software is described by [CITATION.cff](CITATION.cff); cite the OULAD authors separately. No score should be used to penalize or exclude a learner. Responsible applications require new-cohort validation, credible fairness and calibration audits, student protections, human oversight and evidence that support programs help rather than harm.
 
 ---
-*Econometric rigor × Reproducible ML × Human-centered Educational Research.*
+*Rigorous Educational AI must be accurate, transportable, transparent about uncertainty, and accountable to learners.*

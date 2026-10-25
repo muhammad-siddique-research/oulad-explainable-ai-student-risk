@@ -1,19 +1,20 @@
-# Working-paper status and reproducible reporting
+# Working Paper — Status and Scholarly Positioning
 
-**Title:** Explainable AI for Early Academic Risk: Robust Econometrics and XGBoost Using OULAD  
+**Proposed title:** *When Early Signals Travel: Explainable Academic-Risk Prediction and Cross-Course Reliability in the Open University Learning Analytics Dataset*  
 **Author:** Muhammad Siddique, Ph.D.  
-**Study type:** Quantitative secondary-data investigation using the historical UK Open University Learning Analytics Dataset.
+**Project:** Quantitative observational secondary-data research, historical UK OULAD, day-28 design.  
+**Status:** Working research project; **not peer-reviewed, accepted or published**.
 
-The extended APA-style working-paper manuscript exists separately as an editable Word draft. It includes a source-informed Introduction, Literature Review, detailed Research Methodology, limitations and results-reporting specifications. It is **not yet a completed empirical article**: no genuine result coefficients or model comparisons have been generated in this repository as of October 2026.
+## What exists
 
-## Required research outputs before a journal submission
-- Complete raw OULAD acquisition with seven source CSVs and verified Figshare archive checksums.
-- Reportable cohort inclusion/exclusion counts and dataset years.
-- Held-out course-presentation discrimination and calibration metrics (and complete seeds).
-- Independent numerical review of HC3 and presentation-clustered uncertainty.
-- Multiple outer grouped splits; cutoff sensitivity at days 14 and 42.
-- Held-out SHAP feature attribution, rank stability and subgroup support audits.
-- Figure source-code traceability, exact environment and software version capture.
-- Manuscript adaptation to a selected journal's article-length and reference requirements.
+The repository includes research software, an analysis protocol, original-source citations and **six archived aggregate result CSVs** documenting the analytic cohort, main held-out model comparison, observational coefficients, chronological transfer, leave-one-module-out transfer, feature ablation and cutoff sensitivity. A substantive [APA-style Results and Discussion](../docs/RESULTS_AND_DISCUSSION_APA7.md), [Reference List](../docs/REFERENCES_APA7.md) and two source-labeled SVG figures now present the evidence consistently.
 
-**Research-integrity notice:** The historically sourced data are *not* observational evidence of a Robotic Teaching Assistant, live AI-supported feedback, or U.S. classroom results. No such claims should appear in the manuscript.
+## What remains
+
+An independently verified full run against the original OULAD archive; reconciliation of the separate presentation-clustered confidence intervals; committed model-specific SHAP summary with stability analysis; direct held-out calibration curves; privacy-adequate subgroup results; and a journal-specific, author-reviewed final manuscript.
+
+The archived metrics should be described as **reported empirical results pending independent raw-to-table reconciliation**, never as fictional simulation or as independently verified findings of this current upgrade. Existing synthetic code fixtures remain software-only tests. The project has **no robotic instruction, experimental intervention or U.S. prospective outcomes**.
+
+**Novelty qualification:** Related OULAD studies (including Opoku et al., 2025, and Wu et al., 2026) already investigate predictive fairness, early warning and calibration. The defensible research contribution is the transparent combination of methodological audits and context-specific robustness, not priority of invention.
+
+See [Reproducibility Audit](../docs/REPRODUCIBILITY_AUDIT.md) for a claim-by-claim evidence ledger.
