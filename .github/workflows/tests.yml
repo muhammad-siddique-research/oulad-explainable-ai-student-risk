@@ -24,3 +24,9 @@ jobs:
         run: python -m compileall -q src scripts tests
       - name: Check software tests on synthetic fixtures
         run: python -m pytest -q
+      - name: Check committed aggregate results for internal consistency
+        run: python -m scripts.audit_published_results
+      - name: Rebuild aggregate-only manuscript figures
+        run: python -m scripts.build_published_figures
+      - name: Check research document links
+        run: python -m scripts.check_document_links

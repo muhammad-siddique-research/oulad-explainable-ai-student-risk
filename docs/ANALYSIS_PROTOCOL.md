@@ -1,39 +1,39 @@
-# Prespecified quantitative research protocol
+# Analysis Protocol: Day-28 OULAD Risk Prediction
 
-## Research questions and hypotheses
-**RQ1:** What associations exist between early learner activity and later academic failure or withdrawal after adjusting for recorded characteristics and course context?  
-**H1:** Greater day 0–27 VLE activity is associated with lower later academic-risk likelihood, conditional on recorded variables; this is an association, not a treatment effect.
+**Documentation status:** Retrospective protocol accompanying a working computational study. The original research record does not demonstrate a publicly time-stamped preregistration before the archived results were calculated; therefore this file is **not described as preregistered or prospectively prespecified**. Confirmed analytic choices and proposed future audits are distinguished below.
 
-**RQ2:** Does XGBoost improve out-of-presentation predictive discrimination compared with L2-regularized Logistic Regression?  
-**H2:** XGBoost yields higher held-out average precision; uncertainty and group differences must be evaluated before making a superiority claim.
+## Research questions
 
-**RQ3:** How calibrated and stable are model probabilities and SHAP attributions across course presentations, cutoff windows, and sufficiently sized subgroups? This is a diagnostic question, with no forced directional hypothesis.
+- **RQ1 (association):** Among OULAD learners still registered at day 28, what recorded early-activity patterns are associated with eventual Fail/Withdrawn status, conditional on measured background characteristics and course context?
+- **RQ2 (prediction):** Does tuned XGBoost improve held-out Average Precision relative to training-prevalence and L2 Logistic Regression benchmarks under presentation-separated testing?
+- **RQ3 (portability):** Do model ordering and probability-error measures change when entire modules, years, or information horizons are withheld?
+- **RQ4 (responsible evaluation):** Which predictors drive fitted model output, and what would be needed to judge probability reliability, equity and operational usefulness?
+
+**Hypotheses, interpreted as exploratory:** H1—more recorded early engagement is conditionally associated with lower eventual academic risk; H2—XGBoost produces higher main held-out AP than L2 Logistic Regression, but advantage and probability reliability depend on evaluation setting. Neither is a causal claim.
 
 ## Cohort and target
-- Unit: anonymized student–module–presentation enrollment, from the historical 2013–2014 OULAD release.
-- Decision time: 28 days after course start, exclusive feature horizon 0–27.
-- Eligible learner: registered before decision time and not already unregistered.
-- Outcome: end-of-course Fail or Withdrawn (1) versus Pass or Distinction (0).
-- Repeated students: first retained presentation per student in primary analysis; alternative retained-enrollment sensitivity analysis.
 
-## Predictors and validity safeguards
-- Early VLE total clicks, active days, submission-count indicators, and baseline demographic/course variables.
-- Do **not** include later VLE events, end-course grade, unregistration after decision time, future scores, or assessment feedback with unknown release date.
-- Keep human-interpretable statistical associations distinct from causal effects. Timing and grouping limitations must be prominently stated.
+- Source: Kuzilek, Hlosta, and Zdrahal's historical 2013–2014 UK Open University dataset.
+- Unit: original student–module–presentation enrollment; retain one eligible enrollment per public anonymized student identifier for primary reporting.
+- Information horizon: course days 0–27, assessed at day 28; separately compare horizons 14 and 42.
+- Eligible learners: enrolled before decision time and not unregistered before the decision cutoff.
+- Outcome: eventual Fail or Withdrawn (1) versus Pass or Distinction (0), **conditional on surviving enrollment through the decision cutoff**.
+- Course presentation identifies held-out groups, not a fitted feature; original repeated learners are excluded from crossing a train/test boundary.
 
-## Validation
-- Outer held-out split by entire course presentations, excluding overlapping student identifiers.
-- Transformations fitted on training data only; inner group-based hyperparameter selection within training.
-- Prevalence baseline, L2 Logistic Regression, Random Forest, XGBoost.
-- Primary predictive metric: average precision; secondary AUROC, Brier, log loss and prevalence.
-- Quantify repeated grouped-split variability. Repeated splits overlap and are **not** independent randomized trials.
-- Analyze calibration and subgroup error with meaningful support thresholds; suppress cells with fewer than 30 records.
+## Feature time checks
 
-## Statistical inference
-An exploratory linear probability model with HC3-robust standard errors, course-presentation indicators, logged clicks and recorded covariates is included. For journal-standard uncertainty, add presentation-clustered inference with a sufficiently large effective number of groups and transparent small-cluster limitations. These coefficients remain observational associations.
+Permitted: total day-0–27 VLE clicks, count of early active dates, distinct assessments submitted by the cutoff, recorded prior attempts, credits and baseline categories. Excluded: end grade, future VLE records, future unregistration, postcutoff submissions, and scores whose release time cannot be verified. All imputers and encoders are fitted within training data only. See [Data Dictionary](DATA_DICTIONARY.md).
 
-## Model explanation
-Tree SHAP calculated only for held-out predictions. Mean absolute SHAP values are measures of fitted model reliance; they are not causal effects. Re-evaluate across outer holdouts to assess attribution stability.
+## Prediction and inferential evaluation
 
-## Interpretation boundary
-No physical or virtual Robotic Teaching Assistant was deployed, no experimental treatment occurred, and transferability to present-day U.S. education is unestablished.
+- Hold out **whole course presentations**, plus disjoint person identifiers. The main split is generated by GroupShuffleSplit, and XGBoost tuning uses GroupKFold **only within training groups**.
+- Compare prevalence-only, L2 Logistic Regression, Random Forest and XGBoost.
+- Prioritize Average Precision; report event prevalence, AUROC, Brier and log loss. Do not infer calibration quality from Brier alone.
+- Robustness: repeated grouped-split seeds, leave-one-module-out, 2013→2014, background-variable ablation and day-14/day-42 cohort sensitivity. Repeated overlapping partitions are not independent trials.
+- Regression: linear probability model with logged clicks, active days, early submitted tasks, recorded controls and presentation fixed effects. Report heteroskedasticity-robust HC3 uncertainty, and independently replicate presentation-clustered intervals with an explicitly aligned estimation sample before publication. With a small number of clusters, interval precision is limited.
+- Explainability: report only held-out Tree SHAP and descriptively label model reliance; further evaluate rank stability across independent contextual partitions before claiming explanation stability.
+- Fairness: avoid unrestricted subgroup reporting; suppress small cells (working threshold n < 30), examine errors and model calibration by relevant groups, and never equate subgroup parity with ethical deployment.
+
+## Reporting commitments
+
+Always distinguish (1) original-source description, (2) archived aggregate empirical results, (3) new source-data replication, (4) fictional software tests, and (5) planned research. Disclose environment, cohort flow, grouping, seeds, missingness, subgroup cell sizes, any preregistration absence, limitations, conflicts and relevant institutional approval. No intervention effects, robotic instructor, tutoring benefit or modern U.S. generalization have been established.

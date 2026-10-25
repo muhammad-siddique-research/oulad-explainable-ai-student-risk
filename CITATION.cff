@@ -1,16 +1,18 @@
 cff-version: 1.2.0
-message: "If you use this research software, please cite this repository and the original OULAD dataset."
+message: "Please cite the research software and the original OULAD data descriptor separately."
 type: software
 authors:
   - family-names: Siddique
     given-names: Muhammad
-title: "Explainable AI for Early Academic Risk: Robust Econometrics and XGBoost Using OULAD"
-abstract: "Research-stage computational education analytics, statistical inference, gradient boosting, and SHAP; empirical evaluation pending."
+title: "When Early Signals Travel: Explainable Academic-Risk Prediction and Cross-Course Reliability in OULAD"
+abstract: "Unreviewed observational educational-data-science software with archived aggregate results from historical OULAD, course-separated Machine Learning comparisons, robust econometric reporting and responsible interpretation. Independent raw-data replication and selected diagnostic checks remain pending."
 license: MIT
 repository-code: "https://github.com/muhammad-siddique-research/oulad-explainable-ai-student-risk"
 keywords:
-  - educational data mining
+  - educational data science
+  - academic risk prediction
   - learning analytics
-  - explainable artificial intelligence
   - econometrics
-  - XGBoost
+  - cross-course validation
+  - explainable artificial intelligence
+  - responsible machine learning
